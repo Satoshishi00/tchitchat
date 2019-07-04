@@ -27,10 +27,10 @@ const Inscription = () => {
   );
 
   const signup = useCallback(() => {
-    Accounts.createUser({ email, password, username }, err => {
+    Accounts.createUser({ email, username, password }, err => {
       if (err) console.log(err);
     });
-  }, [email, password, username]);
+  }, [email, username, password]);
 
   return (
     <div>
