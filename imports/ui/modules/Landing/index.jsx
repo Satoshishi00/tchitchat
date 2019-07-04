@@ -34,17 +34,7 @@ const Inscription = () => {
 
   return (
     <div>
-      <h1>Inscription</h1>
-      <Fields
-        update={update}
-        state={{
-          password,
-          username,
-          email
-        }}
-      />
-      <button onClick={signup}>Signup</button>
-      <Link to="signin">Connection</Link>
+      <h1>Landing</h1>
     </div>
   );
 };
