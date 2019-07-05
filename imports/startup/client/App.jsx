@@ -19,13 +19,13 @@ const App = () => (
       <MyRoute path="/signup" component={Inscription} />
       <MyRoute path="/signin" component={Connection} />
       <MyRoute path="/missing_pwd" component={Missing} />
-      <MyRoute path="/rooms/:id?" component={Rooms} />
-      <MyRoute path="/users/:id?" component={Users} />
-      <MyRoute path="/settings" component={Settings} />
-      <MyRoute path="/verify" component={Verify} />
-      <MyRoute path="/tchatbox" component={Tchatbox} />
-      <MyRoute path="/errors" component={Errors} />
-      <MyRoute path="/" component={Landing} />
+      <MyRoute path="/rooms/:id?" component={Rooms} logged />
+      <MyRoute path="/users/:id?" component={Users} logged />
+      <MyRoute path="/settings" component={Settings} logged />
+      <MyRoute path="/verify" component={Verify} logged />
+      <MyRoute path="/tchatbox" component={Tchatbox} logged />
+      <MyRoute path="/errors" component={Errors} logged />
+      <MyRoute path="/" component={Landing} logged />
     </Switch>
   </Router>
 );
