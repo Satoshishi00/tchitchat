@@ -3,6 +3,8 @@ import { Meteor } from "meteor/meteor";
 import { Link } from "react-router-dom";
 import { withTracker } from "meteor/react-meteor-data";
 import { Button } from "react-bootstrap";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Fields from "./Fields";
 
@@ -26,7 +28,10 @@ const Connection = () => {
 
   const signin = useCallback(() => {
     Meteor.loginWithPassword(username, password, err => {
-      if (err) console.log(err);
+      if (err) {
+        //const signin = () => toast(err.reason);
+        alert(err.reason);
+      }
     });
   }, [username, password]);
 
