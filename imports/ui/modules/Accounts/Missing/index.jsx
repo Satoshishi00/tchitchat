@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import Fields from "./Fields";
 
-const Inscription = () => {
+const Missing = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -34,19 +34,22 @@ const Inscription = () => {
 
   return (
     <div>
-      <h1>Inscription</h1>
+      <h1>Missing</h1>
+      <p>Entre votre adresse mail</p>
       <Fields
         update={update}
         state={{
-          password,
-          username,
           email
         }}
       />
-      <button onClick={signup}>Signup</button>
-      <Link to="signin">Connection</Link>
+      <div>
+        <button className="btn btn-primary ml-5 ml-lg-0" onClick={signup}>
+          Envoyer
+        </button>
+      </div>
+      <Link to="signin">Se connecter</Link>
     </div>
   );
 };
 
-export default Inscription;
+export default Missing;

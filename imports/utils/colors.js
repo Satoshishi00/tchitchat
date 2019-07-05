@@ -5,7 +5,7 @@ const myColors = {
 };
 
 const colors = color => {
-    return myColors[color] || "lime";
+    return myColors[color] || "grey";
 };
 
 export default colors;

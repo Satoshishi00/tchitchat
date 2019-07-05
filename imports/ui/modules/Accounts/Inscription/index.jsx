@@ -43,8 +43,12 @@ const Inscription = () => {
           email
         }}
       />
-      <button onClick={signup}>Signup</button>
-      <Link to="signin">Connection</Link>
+      <button className="btn btn-primary" onClick={signup}>
+        S'inscrire
+      </button>
+      <Link className="btn btn-primary" to="signin">
+        Connection
+      </Link>
     </div>
   );
 };

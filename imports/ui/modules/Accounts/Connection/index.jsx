@@ -36,7 +36,7 @@ const Connection = () => {
       <Fields update={update} state={{ username, password }} />
       <div>
         <button className="btn btn-primary mr-3" onClick={signin}>
-          Connection
+          Se connecter
         </button>
         <Link className="btn btn-primary" to="/signup">
           Inscription
