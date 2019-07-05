@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Rooms = () => {
   return (
     <div>
       <h1>Rooms</h1>
-
       <p>Listing des rooms</p>
+      <Link to="users">Users</Link>
     </div>
   );
 };
