@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import { Meteor } from "meteor/meteor";
 import { Link } from "react-router-dom";
 import { withTracker } from "meteor/react-meteor-data";
+import { Button } from "react-bootstrap";
 
 import Fields from "./Fields";
 
@@ -30,11 +31,18 @@ const Connection = () => {
   }, [username, password]);
 
   return (
-    <div>
+    <div className="container">
       <h1>Connection</h1>
       <Fields update={update} state={{ username, password }} />
-      <button onClick={signin}>Signup</button>
-      <Link to="/signup">Inscription</Link>
+      <div>
+        <button className="btn btn-primary mr-3" onClick={signin}>
+          Connection
+        </button>
+        <Link className="btn btn-primary" to="/signup">
+          Inscription
+        </Link>
+      </div>
+      <Link to="/missing_pwd">Mot de passe oublié</Link>
     </div>
   );
 };

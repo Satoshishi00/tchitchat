@@ -12,6 +12,7 @@ const Fields = ({ update, state }) => {
       placeholder={field.placeholder}
       name={field.name}
       color={field.color}
+      className={field.className}
     />
   ));
 };

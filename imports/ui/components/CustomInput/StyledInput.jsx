@@ -4,10 +4,12 @@ import colors from "/imports/utils/colors";
 const StyledInput = styled.input`
   font-size: 2em;
   border: none;
-  border-bottom: thick double ${({ color }) => colors(color)};
+  border: solid 1px ${({ color }) => colors(color)};
+  margin-bottom: 0.5em;
   color: ${({ color }) => colors(color)};
   ::placeholder {
     color: ${({ color }) => colors(color)};
+    padding-left: 0.3em;
   }
   :hover {
     cursor: pointer;
