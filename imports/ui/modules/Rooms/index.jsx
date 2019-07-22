@@ -5,8 +5,8 @@ const Rooms = () => {
   return (
     <div>
       <h1>Rooms</h1>
+      <a href="/rooms/add">Créer une room</a>
       <p>Listing des rooms</p>
-      <Link to="users">Users</Link>
     </div>
   );
 };

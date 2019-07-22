@@ -1,52 +1,39 @@
+import { Meteor } from "meteor/meteor";
 import React, { useState, useCallback } from "react";
 import { Accounts } from "meteor/accounts-base";
 import { Link } from "react-router-dom";
-
+import { withTracker } from "meteor/react-meteor-data";
 import Fields from "./Fields";
 
-const Inscription = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
-
-  const update = useCallback(
-    (e, { name, value }) => {
-      switch (name) {
-        case "email":
-          setEmail(value);
-          break;
-        case "password":
-          setPassword(value);
-          break;
-        case "username":
-          setUsername(value);
-          break;
-      }
-    },
-    [setEmail, setPassword, setUsername]
-  );
-
-  const signup = useCallback(() => {
-    Accounts.createUser({ email, password, username }, err => {
-      if (err) console.log(err);
-    });
-  }, [email, password, username]);
-
+const Settings = ({ username, email, id }) => {
   return (
     <div>
-      <h1>Inscription</h1>
-      <Fields
-        update={update}
-        state={{
-          password,
-          username,
-          email
-        }}
-      />
-      <button onClick={signup}>Signup</button>
-      <Link to="signin">Connection</Link>
+      <h1>Account</h1>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <span class="col-md-1">Username :</span>
+          <span>{username}</span>
+        </li>
+        <li class="list-group-item">
+          <span class="col-md-1">Email :</span>
+          {email}
+        </li>
+        <li class="list-group-item">
+          <span class="col-md-1">Id :</span>
+          {id}
+        </li>
+      </ul>
     </div>
   );
 };
 
-export default Inscription;
+const SettingsWithTracker = withTracker(() => {
+  const user = Meteor.user() || {};
+  return {
+    username: user.username,
+    email: user.emails[0].address,
+    id: user._id
+  };
+})(Settings);
+
+export default SettingsWithTracker;
