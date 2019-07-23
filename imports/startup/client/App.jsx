@@ -5,6 +5,7 @@ import MyRoute from "/imports/ui/components/MyRoute";
 import Inscription from "/imports/ui/modules/Accounts/Inscription";
 import Connection from "/imports/ui/modules/Accounts/Connection";
 import Missing from "/imports/ui/modules/Accounts/Missing";
+import Room from "/imports/ui/modules/Room";
 import Rooms from "/imports/ui/modules/Rooms";
 import RoomsAdd from "/imports/ui/modules/RoomsAdd";
 import RoomsEdit from "/imports/ui/modules/RoomsEdit";
@@ -22,6 +23,7 @@ const App = () => (
       <MyRoute path="/signin" component={Connection} />
       <MyRoute path="/missing_pwd" component={Missing} />
 
+      <MyRoute path="/room/:id?" component={Room} logged />
       <MyRoute path="/rooms/add" component={RoomsAdd} logged />
       <MyRoute path="/rooms/edit/:id?" component={RoomsEdit} logged />
       <MyRoute path="/rooms/:id?" component={Rooms} logged />

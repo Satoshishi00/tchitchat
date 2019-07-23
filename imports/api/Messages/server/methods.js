@@ -4,16 +4,13 @@ import {
 import Messages from '..';
 
 Meteor.methods({
+    
     "messages.create"({
-        title,
+        roomId,
         content
     }) {
-        if (!this.userId) {
-            throw new Meteor.Error('403', 'You must be connected');
-        }
-
         Messages.insert({
-            title,
+            roomId,
             content,
             createdAt: new Date(),
             userId: this.userId,
