@@ -7,6 +7,7 @@ import Connection from "/imports/ui/modules/Accounts/Connection";
 import Missing from "/imports/ui/modules/Accounts/Missing";
 import Rooms from "/imports/ui/modules/Rooms";
 import RoomsAdd from "/imports/ui/modules/RoomsAdd";
+import RoomsEdit from "/imports/ui/modules/RoomsEdit";
 import Users from "/imports/ui/modules/Users";
 import Settings from "/imports/ui/modules/Accounts/Settings";
 import Verify from "/imports/ui/modules/Accounts/Verify";
@@ -22,6 +23,7 @@ const App = () => (
       <MyRoute path="/missing_pwd" component={Missing} />
 
       <MyRoute path="/rooms/add" component={RoomsAdd} logged />
+      <MyRoute path="/rooms/edit/:id?" component={RoomsEdit} logged />
       <MyRoute path="/rooms/:id?" component={Rooms} logged />
       <MyRoute path="/users/:id?" component={Users} logged />
       <MyRoute path="/settings" component={Settings} logged />

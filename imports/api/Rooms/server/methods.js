@@ -17,7 +17,7 @@ Meteor.methods({
     
     "rooms.update"({
         id,
-        name
+        title
     }) {
 
         const room = Rooms.findOne(id);
@@ -28,7 +28,7 @@ Meteor.methods({
 
         Rooms.update(id, {
             $set: {
-                name,
+                title,
             }
         });
     },
