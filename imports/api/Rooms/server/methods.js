@@ -1,44 +1,48 @@
 import {
     Meteor
 } from 'meteor/meteor';
-import Users from '..';
+import Rooms from '..';
 
 Meteor.methods({
 
-    "users.update"({
+    "rooms.create"({
+        room_name
+    }) {
+        Rooms.insert({
+            room_name,
+            createdAt: new Date(),
+            userId: this.Id,
+        })
+    },
+    
+    "rooms.update"({
         id,
         name
     }) {
-        if (!this.userId) {
-            throw new Meteor.Error('403', 'You must be connected');
+
+        const room = Rooms.findOne(id);
+
+        if (room.userId !== this.userId) {
+            throw new Meteor.Error('403', 'Vous devez être le propriétaire de la Room');
         }
 
-        const user = Users.findOne(id);
-
-        if (user.userId !== this.userId) {
-            throw new Meteor.Error('403', 'You must be the owner of article');
-        }
-
-        Users.update(id, {
+        Rooms.update(id, {
             $set: {
                 name,
             }
         });
     },
 
-    "users.remove"({
+    "rooms.remove"({
         id
     }) {
-        if (!this.userId) {
-            throw new Meteor.Error('403', 'You must be connected');
+
+        const room = Rooms.findOne(id);
+
+        if (room.userId !== this.userId) {
+            throw new Meteor.Error('403', 'Vous devez être le propriétaire de la Room');
         }
 
-        const article = Users.findOne(id);
-
-        if (article.userId !== this.userId) {
-            throw new Meteor.Error('403', 'You must be the owner of article');
-        }
-
-        Users.remove(id);
+        Rooms.remove(id);
     },
 });
