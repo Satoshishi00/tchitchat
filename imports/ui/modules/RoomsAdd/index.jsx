@@ -1,44 +1,53 @@
-import React, { useState, useCallback } from "react";
-import { Link } from "react-router-dom";
-import Fields from "./Fields";
+import React, { Component } from "react";
 import { Meteor } from "meteor/meteor";
+import CustomInput from "../../components/CustomInput";
+import { withTracker } from "meteor/react-meteor-data";
+import Link from "react-router-dom";
 
-const RoomsAdd = ({ rooms }) => {
-  const [room_name, setRoomName] = useState("");
+class RoomsAdd extends Component {
+  state = {
+    title: ""
+  };
 
-  const update = useCallback(
-    (e, { room_name, value }) => {
-      if (room_name) {
-        setRoomName(value);
-      }
-    },
-    [setRoomName]
-  );
+  static getDerivedStateFromProps(props) {
+    if (!props.userId) {
+      props.history.push("/singnin");
+    }
+    return {};
+  }
 
-  const addRoom = useCallback(() => {
-    Meteor.call("rooms.create", { room_name }, err => {
+  update = (e, { name, value }) => {
+    this.setState({ [name]: value });
+  };
+
+  send = () => {
+    const { title } = this.state;
+    const { history } = this.props;
+
+    Meteor.call("rooms.create", { title }, err => {
       if (err) console.log(err);
-      else rooms.push("/rooms");
+      else history.push("/rooms");
     });
-  }, [room_name, rooms]);
+  };
 
-  return (
-    <div>
-      <h1>Créer un nouveau salon</h1>
-      <a href="/rooms">Liste des salons</a>
-      <form>
-        <Fields
-          update={update}
-          state={{
-            room_name
-          }}
+  render() {
+    const { title } = this.state;
+    return (
+      <div>
+        <CustomInput
+          placeholder="Title"
+          name="title"
+          value={title}
+          update={this.update}
         />
-        <button className="btn btn-primary" onClick={addRoom}>
+        <button className="btn btn-primary" onClick={this.send}>
           Build Room
         </button>
-      </form>
-    </div>
-  );
-};
+      </div>
+    );
+  }
+}
 
-export default RoomsAdd;
+export default withTracker(() => ({
+  userId: Meteor.userId()
+}))(RoomsAdd);

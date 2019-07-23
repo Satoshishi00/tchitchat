@@ -6,12 +6,12 @@ import Rooms from '..';
 Meteor.methods({
 
     "rooms.create"({
-        room_name
+        title
     }) {
         Rooms.insert({
-            room_name,
+            title,
             createdAt: new Date(),
-            userId: this.Id,
+            userId: this.userId,
         })
     },
     

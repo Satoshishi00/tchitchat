@@ -7,7 +7,7 @@ const RoomSchema = new SimpleSchema({
     userId: {
         type: String,
     },
-    room_name: {
+    title: {
         type: String,
         max: 255,
     },
