@@ -1,8 +1,8 @@
 import React, { Component, useCallback } from "react";
 import { Meteor } from "meteor/meteor";
-import LittleInput from "../../components/LittleInput";
-import CustomInput from "../../components/CustomInput";
-import LittleButton from "../../components/LittleButton";
+import LittleInput from "/imports/ui/components/LittleInput";
+import CustomInput from "/imports/ui/components/CustomInput";
+import LittleButton from "/imports/ui/components/LittleButton";
 import { withTracker } from "meteor/react-meteor-data";
 import Link from "react-router-dom";
 

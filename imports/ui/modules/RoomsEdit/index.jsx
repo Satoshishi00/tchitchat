@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Meteor } from "meteor/meteor";
-import CustomInput from "../../components/CustomInput";
+import CustomInput from "/imports/ui/components/CustomInput";
 import { withTracker } from "meteor/react-meteor-data";
 import Link from "react-router-dom";
 
