@@ -1,20 +1,27 @@
-import React, { Component } from "react";
+import React, { Component, useCallback } from "react";
 import { Meteor } from "meteor/meteor";
 import CustomInput from "../../components/CustomInput";
 import { withTracker } from "meteor/react-meteor-data";
 import Link from "react-router-dom";
 
 import Rooms from "/imports/api/Rooms";
+import Messages from "/imports/api/Messages";
+
+import Loader from "/imports/ui/components/Loader";
+import Message from "./Message";
+
+import formatTime from "/imports/utils/formatTime";
 
 class Room extends Component {
   state = {
     content: ""
   };
 
-  static getDerivedStateFromProps(props) {
+  static getDerivedStateFromProps(props, loading) {
     if (!props.userId) {
       props.history.push("/singnin");
     }
+    console.log(props);
     return {};
   }
 
@@ -27,8 +34,9 @@ class Room extends Component {
     const { history } = this.props;
 
     let roomId = this.props.location.pathname.split("/")[2];
+    let userName = Meteor.user().username;
 
-    Meteor.call("messages.create", { roomId, content }, err => {
+    Meteor.call("messages.create", { roomId, content, userName }, err => {
       if (err) console.log(err);
       else {
         history.push(history.location.pathname);
@@ -39,11 +47,30 @@ class Room extends Component {
 
   render() {
     const { content } = this.state;
-    let roomName = Rooms.findOne(this.props.location.pathname.split("/")[2])
-      .title;
+    // let loading = this.props.loading;
+    // let messages = this.props.messages;
+    const { loading, messages, user, userId } = this.props;
+    let roomId = this.props.location.pathname.split("/")[2];
+    let roomName = Rooms.findOne(roomId).title;
+    console.log(formatTime(messages[0].createdAt));
+    console.log(messages[0].createdAt);
+
     return (
       <div>
         <h2>{roomName}</h2>
+        <Loader
+          loading={loading}
+          // TODO : ajouter la condition que le message appartienne à la room
+          render={messages.map(message => (
+            <Message
+              key={message._id}
+              message={message}
+              roomId={roomId}
+              userId={userId}
+            />
+          ))}
+        />
+
         <CustomInput
           placeholder="message"
           name="content"
@@ -58,6 +85,17 @@ class Room extends Component {
   }
 }
 
-export default withTracker(() => ({
-  userId: Meteor.userId()
-}))(Room);
+export default withTracker(({ match: { params: { id } } }) => {
+  const messagesPublication = Meteor.subscribe("messages.lasts", id);
+  const loading = !messagesPublication.ready();
+  const messages = Messages.find(
+    { roomId: id },
+    { sort: { createdAt: 1 } }
+  ).fetch();
+  return {
+    userId: Meteor.userId(),
+    user: Meteor.user() || {},
+    loading,
+    messages
+  };
+})(Room);

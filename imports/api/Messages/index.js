@@ -18,6 +18,9 @@ const MessageSchema = new SimpleSchema({
     },
     userId: {
         type: String
+    },
+    userName: {
+        type: String
     }
 });
 

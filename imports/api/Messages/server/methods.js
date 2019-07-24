@@ -7,13 +7,15 @@ Meteor.methods({
     
     "messages.create"({
         roomId,
-        content
+        content,
+        userName
     }) {
         Messages.insert({
             roomId,
             content,
             createdAt: new Date(),
             userId: this.userId,
+            userName,
         });
     },
 
