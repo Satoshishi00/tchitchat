@@ -1,5 +1,7 @@
-import React from "react";
+import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import MyRoute from "/imports/ui/components/MyRoute";
 import Inscription from "/imports/ui/modules/Accounts/Inscription";
@@ -34,6 +36,7 @@ const App = () => (
       <MyRoute path="/errors" component={Errors} logged />
       <MyRoute path="/" component={Landing} logged />
     </Switch>
+    <ToastContainer />
   </Router>
 );
 

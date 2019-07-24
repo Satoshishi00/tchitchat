@@ -29,8 +29,11 @@ const Connection = () => {
   const signin = useCallback(() => {
     Meteor.loginWithPassword(username, password, err => {
       if (err) {
-        //const signin = () => toast(err.reason);
-        alert(err.reason);
+        toast.error(err.reason);
+      } else {
+        toast.success(
+          "Bienvenue " + Meteor.users.findOne(Meteor.userId()).username + " !"
+        );
       }
     });
   }, [username, password]);
