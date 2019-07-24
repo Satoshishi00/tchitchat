@@ -2,59 +2,25 @@ import {
     Meteor
 } from 'meteor/meteor';
 import Messages from '..';
+import Rooms from "/imports/api/Rooms";
 
 Meteor.methods({
     
     "messages.create"({
         roomId,
-        content,
-        userName
+        content
     }) {
+        const room = Rooms.findOne(roomId);
+        console.log(room);
+
         Messages.insert({
             roomId,
             content,
             createdAt: new Date(),
             userId: this.userId,
-            userName,
+            userName: Meteor.users.findOne(this.userId).username,
         });
-    },
+    }
 
-    "messages.update"({
-        id,
-        title,
-        content
-    }) {
-        if (!this.userId) {
-            throw new Meteor.Error('403', 'You must be connected');
-        }
-
-        const article = Messages.findOne(id);
-
-        if (article.userId !== this.userId) {
-            throw new Meteor.Error('403', 'You must be the owner of article');
-        }
-
-        Messages.update(id, {
-            $set: {
-                title,
-                content
-            }
-        });
-    },
-
-    "messages.remove"({
-        id
-    }) {
-        if (!this.userId) {
-            throw new Meteor.Error('403', 'You must be connected');
-        }
-
-        const article = Messages.findOne(id);
-
-        if (article.userId !== this.userId) {
-            throw new Meteor.Error('403', 'You must be the owner of article');
-        }
-
-        Messages.remove(id);
-    },
+    
 });

@@ -1,6 +1,8 @@
 import React, { Component, useCallback } from "react";
 import { Meteor } from "meteor/meteor";
+import LittleInput from "../../components/LittleInput";
 import CustomInput from "../../components/CustomInput";
+import LittleButton from "../../components/LittleButton";
 import { withTracker } from "meteor/react-meteor-data";
 import Link from "react-router-dom";
 
@@ -17,7 +19,7 @@ class Room extends Component {
     content: ""
   };
 
-  static getDerivedStateFromProps(props, loading) {
+  static getDerivedStateFromProps(props) {
     if (!props.userId) {
       props.history.push("/singnin");
     }
@@ -29,17 +31,15 @@ class Room extends Component {
     this.setState({ [name]: value });
   };
 
-  send = () => {
+  send = e => {
+    e.preventDefault();
     const { content } = this.state;
-    const { history } = this.props;
+    const { roomId } = this.props;
 
-    let roomId = this.props.location.pathname.split("/")[2];
-    let userName = Meteor.user().username;
-
-    Meteor.call("messages.create", { roomId, content, userName }, err => {
+    Meteor.call("messages.create", { roomId, content }, err => {
       if (err) console.log(err);
       else {
-        history.push(history.location.pathname);
+        this.setState({ content: "" });
         console.log("Message ajouté ;)");
       }
     });
@@ -47,20 +47,14 @@ class Room extends Component {
 
   render() {
     const { content } = this.state;
-    // let loading = this.props.loading;
-    // let messages = this.props.messages;
-    const { loading, messages, user, userId } = this.props;
-    let roomId = this.props.location.pathname.split("/")[2];
+    const { loading, messages, userId, roomId } = this.props;
     let roomName = Rooms.findOne(roomId).title;
-    console.log(formatTime(messages[0].createdAt));
-    console.log(messages[0].createdAt);
 
     return (
       <div>
         <h2>{roomName}</h2>
         <Loader
           loading={loading}
-          // TODO : ajouter la condition que le message appartienne à la room
           render={messages.map(message => (
             <Message
               key={message._id}
@@ -70,16 +64,18 @@ class Room extends Component {
             />
           ))}
         />
-
-        <CustomInput
-          placeholder="message"
-          name="content"
-          value={content}
-          update={this.update}
-        />
-        <button className="btn btn-primary" onClick={this.send}>
-          Send
-        </button>
+        <form onSubmit={this.send} style={{ display: "flex" }}>
+          <LittleInput
+            placeholder="message"
+            type="text"
+            name="content"
+            value={content}
+            update={this.update}
+          />
+          <LittleButton>
+            <i className="fas fa-paper-plane" />
+          </LittleButton>
+        </form>
       </div>
     );
   }
@@ -95,6 +91,7 @@ export default withTracker(({ match: { params: { id } } }) => {
   return {
     userId: Meteor.userId(),
     user: Meteor.user() || {},
+    roomId: id,
     loading,
     messages
   };

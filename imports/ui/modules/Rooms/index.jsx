@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { withTracker } from "meteor/react-meteor-data";
 import { Meteor } from "meteor/meteor";
 import React, { useState, useCallback } from "react";
+import { withTracker } from "meteor/react-meteor-data";
+
 import CustomInput from "../../components/CustomInput";
 
 import Rooms from "/imports/api/Rooms";
