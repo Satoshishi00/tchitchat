@@ -13,7 +13,12 @@ import Room from "./Room";
 const displayRooms = ({ userId, loading, rooms }) => {
   const remove = useCallback(({ target: { id } }) => {
     Meteor.call("rooms.remove", { id }, err => {
-      if (err) console.log(err);
+      if (err) {
+        toast.error(err.reason);
+      } else {
+        console.log(room);
+        toast.success("La chatroom a bien été supprimée !");
+      }
     });
   }, []);
 
