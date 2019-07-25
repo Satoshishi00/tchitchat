@@ -12,7 +12,7 @@ const Room = ({ room, userId, remove }) => (
     {room.userId === userId && (
       <div style={{ right: "0px" }}>
         <Link className="btn btn-warning" to={`/rooms/edit/${room._id}`}>
-          <i class="fas fa-edit" />
+          <i className="fas fa-edit" />
         </Link>
         <button
           id={room._id}
@@ -20,7 +20,7 @@ const Room = ({ room, userId, remove }) => (
           onClick={remove}
           className="btn btn-danger"
         >
-          <i class="fas fa-trash" />
+          <i className="fas fa-trash" />
         </button>
       </div>
     )}

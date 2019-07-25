@@ -3,6 +3,8 @@ import { Meteor } from "meteor/meteor";
 import CustomInput from "/imports/ui/components/CustomInput";
 import { withTracker } from "meteor/react-meteor-data";
 import Link from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Rooms from "/imports/api/Rooms";
 
@@ -29,8 +31,12 @@ class RoomsEdit extends Component {
     let id = this.props.location.pathname.split("/")[3];
 
     Meteor.call("rooms.update", { id, title }, err => {
-      if (err) console.log(err);
-      else history.push("/rooms");
+      if (err) {
+        toast.error(err.reason);
+      } else {
+        toast.success("La chatroom est devenue : " + title);
+        history.push("/rooms");
+      }
     });
   };
 

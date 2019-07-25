@@ -9,17 +9,17 @@ const Settings = ({ username, email, id }) => {
   return (
     <div>
       <h1>Account</h1>
-      <ul class="list-group">
-        <li class="list-group-item">
-          <span class="col-md-1">Username :</span>
+      <ul className="list-group">
+        <li className="list-group-item">
+          <span className="col-md-1">Username :</span>
           <span>{username}</span>
         </li>
-        <li class="list-group-item">
-          <span class="col-md-1">Email :</span>
+        <li className="list-group-item">
+          <span className="col-md-1">Email :</span>
           {email}
         </li>
-        <li class="list-group-item">
-          <span class="col-md-1">Id :</span>
+        <li className="list-group-item">
+          <span className="col-md-1">Id :</span>
           {id}
         </li>
       </ul>

@@ -8,6 +8,12 @@ Meteor.methods({
     "rooms.create"({
         title
     }) {
+        const room = Rooms.findOne(title);
+
+        if (room != 'undifined') {
+            throw new Meteor.Error('403', 'Une room avec ce nom existe déjà');
+        }
+
         Rooms.insert({
             title,
             createdAt: new Date(),
