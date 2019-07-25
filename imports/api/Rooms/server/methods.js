@@ -9,9 +9,14 @@ Meteor.methods({
         title
     }) {
         const room = Rooms.findOne(title);
-        
+        const roomExist = Rooms.findOne({
+            title: title
+        });
+
         if (typeof room != 'undefined') {
             throw new Meteor.Error('403', 'Une room avec ce nom existe déjà : ' + room);
+        } else if (title == roomExist.title) {
+            throw new Meteor.Error('403', "Le nom de Room \"" + roomExist.title + "\" existe déjà. Veuillez en choisir un autre");
         }
 
         Rooms.insert({
