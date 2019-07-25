@@ -7,7 +7,7 @@ const StyledInput = styled.input`
   border: solid 1px ${({ color }) => colors(color)};
   margin-bottom: 0.5em;
   padding-left: 0.3em;
-  color: ${({ color }) => colors(color)};
+  color: black;
   ::placeholder {
     color: ${({ color }) => colors(color)};
   }
