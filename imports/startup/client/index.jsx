@@ -7,5 +7,6 @@ Meteor.startup(() => {
   document.getElementById("logout").addEventListener("click", () => {
     Meteor.logout();
   });
+  Meteor.subscribe("userStatus");
   hydrate(<App />, document.getElementById("react-target"));
 });
