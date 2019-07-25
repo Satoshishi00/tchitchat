@@ -28,37 +28,43 @@ const Inscription = () => {
     [setEmail, setPassword, setUsername]
   );
 
-  const signup = useCallback(() => {
-    Accounts.createUser({ email, password, username }, err => {
-      if (err) {
-        toast.error(err.reason);
-      } else {
-        toast.success(
-          "Félicitation pour votre inscription " +
-            Meteor.users.findOne(Meteor.userId()).username +
-            " !"
-        );
-      }
-    });
-  }, [email, password, username]);
+  const signup = useCallback(
+    e => {
+      e.preventDefault();
+      Accounts.createUser({ email, password, username }, err => {
+        if (err) {
+          toast.error(err.reason);
+        } else {
+          toast.success(
+            "Félicitation pour votre inscription " +
+              Meteor.users.findOne(Meteor.userId()).username +
+              " !"
+          );
+        }
+      });
+    },
+    [email, password, username]
+  );
 
   return (
     <div>
       <h1>Inscription</h1>
-      <Fields
-        update={update}
-        state={{
-          password,
-          username,
-          email
-        }}
-      />
-      <button className="btn btn-primary" onClick={signup}>
-        S'inscrire
-      </button>
-      <Link className="btn btn-primary" to="signin">
-        Connection
-      </Link>
+      <form onSubmit={signup}>
+        <Fields
+          update={update}
+          state={{
+            password,
+            username,
+            email
+          }}
+        />
+        <button className="btn btn-primary" onClick={signup}>
+          S'inscrire
+        </button>
+        <Link className="btn btn-primary" to="signin">
+          Connection
+        </Link>
+      </form>
     </div>
   );
 };
