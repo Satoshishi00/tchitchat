@@ -3,6 +3,8 @@ import { Meteor } from "meteor/meteor";
 import CustomInput from "/imports/ui/components/CustomInput";
 import { withTracker } from "meteor/react-meteor-data";
 import Link from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 class RoomsAdd extends Component {
   state = {
@@ -25,8 +27,12 @@ class RoomsAdd extends Component {
     const { history } = this.props;
 
     Meteor.call("rooms.create", { title }, err => {
-      if (err) console.log(err);
-      else history.push("/rooms");
+      if (err) {
+        toast.error(err.reason);
+      } else {
+        toast.success("La chatroom " + title + " a bien été créée !");
+        history.push("/rooms");
+      }
     });
   };
 
