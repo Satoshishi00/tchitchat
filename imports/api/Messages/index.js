@@ -21,7 +21,10 @@ const MessageSchema = new SimpleSchema({
     },
     userName: {
         type: String
-    }
+    },
+    usersIds: {
+        type: String,
+    },
 });
 
 Messages.attachSchema(MessageSchema);

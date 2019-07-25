@@ -19,8 +19,23 @@ Meteor.methods({
             createdAt: new Date(),
             userId: this.userId,
             userName: Meteor.users.findOne(this.userId).username,
+            usersIds: ""
+        });
+    },
+
+    "messages_private.create"({
+        content,
+        usersIds
+    }) {
+
+        Messages.insert({
+            roomId: "private",
+            content,
+            createdAt: new Date(),
+            userId: this.userId,
+            userName: Meteor.users.findOne(this.userId).username,
+            usersIds
         });
     }
 
-    
 });
