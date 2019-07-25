@@ -26,30 +26,36 @@ const Connection = () => {
     [setPassword, setUsername]
   );
 
-  const signin = useCallback(() => {
-    Meteor.loginWithPassword(username, password, err => {
-      if (err) {
-        toast.error(err.reason);
-      } else {
-        toast.success(
-          "Bienvenue " + Meteor.users.findOne(Meteor.userId()).username + " !"
-        );
-      }
-    });
-  }, [username, password]);
+  const signin = useCallback(
+    e => {
+      e.preventDefault();
+      Meteor.loginWithPassword(username, password, err => {
+        if (err) {
+          toast.error(err.reason);
+        } else {
+          toast.success(
+            "Bienvenue " + Meteor.users.findOne(Meteor.userId()).username + " !"
+          );
+        }
+      });
+    },
+    [username, password]
+  );
 
   return (
     <div className="container">
       <h1>Connection</h1>
-      <Fields update={update} state={{ username, password }} />
-      <div>
-        <button className="btn btn-primary mr-3" onClick={signin}>
-          Se connecter
-        </button>
-        <Link className="btn btn-primary" to="/signup">
-          Inscription
-        </Link>
-      </div>
+      <form onSubmit={signin}>
+        <Fields update={update} state={{ username, password }} />
+        <div>
+          <button className="btn btn-primary mr-3" onClick={signin}>
+            Se connecter
+          </button>
+          <Link className="btn btn-primary" to="/signup">
+            Inscription
+          </Link>
+        </div>
+      </form>
       <Link to="/missing_pwd">Mot de passe oublié</Link>
     </div>
   );
