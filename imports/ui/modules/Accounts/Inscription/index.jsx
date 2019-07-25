@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from "react";
 import { Accounts } from "meteor/accounts-base";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Fields from "./Fields";
 
@@ -28,7 +30,15 @@ const Inscription = () => {
 
   const signup = useCallback(() => {
     Accounts.createUser({ email, password, username }, err => {
-      if (err) console.log(err);
+      if (err) {
+        toast.error(err.reason);
+      } else {
+        toast.success(
+          "Félicitation pour votre inscription " +
+            Meteor.users.findOne(Meteor.userId()).username +
+            " !"
+        );
+      }
     });
   }, [email, password, username]);
 
