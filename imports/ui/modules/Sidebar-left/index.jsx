@@ -21,6 +21,28 @@ class Sidebar extends React.Component {
         <a onClick={this.showSettings} className="menu-item--small" href="">
           Settings
         </a>
+        <ul class="list-group">
+          <li id="logout">
+            <a href="/signin">
+              <i class="fas fa-power-off" />
+            </a>
+          </li>
+          <li>
+            <a href="/settings">
+              <i class="fas fa-user-cog"> Profil</i>
+            </a>
+          </li>
+          <li>
+            <a href="/users">
+              <i class="fas fa-users"> Users</i>
+            </a>
+          </li>
+          <li>
+            <a href="/rooms">
+              <i class="fas fa-comment"> Chat Rooms</i>
+            </a>
+          </li>
+        </ul>
       </Menu>
     );
   }

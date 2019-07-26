@@ -44,6 +44,7 @@ class RoomsEdit extends Component {
     const { title } = this.state;
     return (
       <div>
+        <h1>Room Edition</h1>
         <CustomInput
           placeholder="Title"
           name="title"

@@ -1,9 +1,9 @@
 import React from "react";
-import StyledDiv from "./StyledDiv";
+import StyledBtn from "./StyledBtn";
 
 const LittleButton = ({ ...rest }) => (
   <div>
-    <StyledDiv {...rest} />
+    <StyledBtn {...rest} />
   </div>
 );
 

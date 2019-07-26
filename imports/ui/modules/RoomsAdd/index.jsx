@@ -40,6 +40,7 @@ class RoomsAdd extends Component {
     const { title } = this.state;
     return (
       <div>
+        <h1>Add Room</h1>
         <CustomInput
           placeholder="Title"
           name="title"

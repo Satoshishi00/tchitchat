@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import colors from "/imports/utils/colors";
 
-const StyledDiv = styled.button`
+const StyledBtn = styled.button`
   width: 1.9em;
   height: 1.9em;
   border: solid 1px #00a8ff;
@@ -15,4 +15,4 @@ const StyledDiv = styled.button`
   }
 `;
 
-export default StyledDiv;
+export default StyledBtn;
