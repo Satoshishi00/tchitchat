@@ -10,7 +10,8 @@ body {
 
 h1 {
   text-align: center;
-  margin-bottom: 1em
+  margin-bottom: 1em;
+
 }
 
 
@@ -93,7 +94,15 @@ h1 {
 }
 
 #messages {
-  /* position: absolute;
-  bottom: 3em;
-  top: 15em; */
+  overflow-y: scroll;
+  height: 75vh;
+}
+
+#close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 2.4em;
+  color: black;
+  cursor: pointer;
 }
