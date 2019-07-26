@@ -1,4 +1,5 @@
 import React, { Component, useCallback } from "react";
+import { Meteor } from "meteor/meteor";
 import { Accounts } from "meteor/accounts-base";
 import { Link } from "react-router-dom";
 import { withTracker } from "meteor/react-meteor-data";
@@ -48,30 +49,30 @@ class UsersConnected extends Component {
     return (
       <div>
         <h1>Users</h1>
-        <p>Liste des utilisateurs</p>
         {users.map(user => (
-          <UserConnected
-            key={user._id}
-            user={user}
-            // onclick={console.log(user.username)}
-          />
+          <UserConnected key={user._id} user={user} />
         ))}
-        <Link to="rooms">Rooms</Link>
         {typeof contactUser != "undefined" && (
           <div>
             <h2>{contactUser.username}</h2>
             {console.log("Messages : " + messages)}
-            <Loader
-              loading={loading}
-              render={messages.map(message => (
-                <Message
-                  key={message._id}
-                  message={message}
-                  userId={Meteor.userId()}
-                />
-              ))}
-            />
-            <form onSubmit={this.send} style={{ display: "flex" }}>
+            <div id="messages">
+              <Loader
+                loading={loading}
+                render={messages.map(message => (
+                  <Message
+                    key={message._id}
+                    message={message}
+                    userId={Meteor.userId()}
+                  />
+                ))}
+              />
+            </div>
+            <form
+              onSubmit={this.send}
+              style={{ display: "flex" }}
+              id="messageInput"
+            >
               <LittleInput
                 placeholder="message"
                 type="text"
@@ -114,35 +115,6 @@ export default withTracker(({ match: { params: { id } } }) => {
     console.log("Messages instancitions props : " + messages);
   }
   console.log(contactUser);
-
-  //  ---------   On oublie l'idée de créer des room privées   --------
-  // let userExist = Meteor.users.findOne(id);
-  // if (typeof userExist != "undefined") {
-  //   userNames = [Meteor.user().username, userExist.username];
-  //   //L'idée est d'ordonner alphabétiquement les 2 noms pour avoir un
-  //   //unique nom de room quelque soit celui des users qui créait la room
-  //   userNames.sort();
-  //   newRoomName = userNames[0] + "/\\" + userNames[1];
-  //   let roomExist = Rooms.findOne({
-  //     title: newRoomName
-  //   });
-  //   if (typeof roomExist == "undefined") {
-  //     //On crée la room
-  //     console.log(newRoomName);
-  //     const { title } = newRoomName;
-  //     Meteor.call("rooms.create", { title }, err => {
-  //       if (err) {
-  //         toast.error(err.reason);
-  //       } else {
-  //         toast.success(
-  //           "Vous pouvez maintenant chatter avec " + userExist.username
-  //         );
-  //       }
-  //     });
-  //   } else {
-  //     //On accède à la room
-  //   }
-  // }
 
   return {
     userId: Meteor.userId(),

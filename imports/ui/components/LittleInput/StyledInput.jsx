@@ -2,6 +2,7 @@ import styled from "styled-components";
 import colors from "/imports/utils/colors";
 
 const StyledInput = styled.input`
+  width: 88vw;
   font-size: 1.3em;
   border: none;
   border: solid 1px ${({ color }) => colors(color)};
