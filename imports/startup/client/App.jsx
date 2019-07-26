@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SideBar from "/imports/ui/components/SideBar";
 
 import MyRoute from "/imports/ui/components/MyRoute";
 import Inscription from "/imports/ui/modules/Accounts/Inscription";
@@ -20,6 +21,7 @@ import Landing from "/imports/ui/modules/Landing";
 
 const App = () => (
   <Router>
+    <SideBar />
     <Switch>
       <MyRoute path="/signup" component={Inscription} />
       <MyRoute path="/signin" component={Connection} />
