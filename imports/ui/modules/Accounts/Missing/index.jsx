@@ -34,20 +34,24 @@ const Missing = () => {
 
   return (
     <div>
-      <h1>Missing</h1>
-      <p>Entre votre adresse mail</p>
+      <div id="topbar">
+        <h1>Missing</h1>
+      </div>
+      <h2 className="rooms-title">Entre votre adresse mail</h2>
       <Fields
         update={update}
         state={{
           email
         }}
       />
-      <div>
-        <button className="btn btn-primary ml-5 ml-lg-0" onClick={signup}>
+      <div className="btn-container">
+        <Link className="btn btn-info" to="signin">
+          Se connecter
+        </Link>
+        <button className="btn btn-success" onClick={signup}>
           Envoyer
         </button>
       </div>
-      <Link to="signin">Se connecter</Link>
     </div>
   );
 };

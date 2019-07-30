@@ -4,35 +4,54 @@ import { Accounts } from "meteor/accounts-base";
 import { Link } from "react-router-dom";
 import { withTracker } from "meteor/react-meteor-data";
 import Fields from "./Fields";
+import formatTime from "/imports/utils/formatTime";
 
-const Settings = ({ username, email, id }) => {
+const Settings = ({ user }) => {
   return (
-    <div>
-      <h1>Account</h1>
-      <ul className="list-group">
-        <li className="list-group-item">
-          <span className="col-md-1">Username :</span>
-          <span>{username}</span>
-        </li>
-        <li className="list-group-item">
-          <span className="col-md-1">Email :</span>
-          {email}
-        </li>
-        <li className="list-group-item">
-          <span className="col-md-1">Id :</span>
-          {id}
-        </li>
-      </ul>
+    <div id="wrapper">
+      <div id="topbar">
+        <h1>Account</h1>
+      </div>
+
+      {typeof user !== null && (
+        <div>
+          <Link className="btn-update" to={`../../settings/edit`}>
+            Editer
+          </Link>
+          <div className="item-center">
+            <ul className="list-group">
+              <li className="list-group-item">
+                <span className="col-md-1">Username :</span>
+                <span>{user.username}</span>
+              </li>
+              <li className="list-group-item">
+                <span className="col-md-1">Email :</span>
+                {user.emails[0].address}
+              </li>
+              <li className="list-group-item">
+                <span className="col-md-1">City :</span>
+                {user.city}
+              </li>
+              <li className="list-group-item">
+                <span className="col-md-1">Birthdate :</span>
+                {user.birthdate ? formatTime(user.birthdate) : ""}
+              </li>
+              <li className="list-group-item">
+                <span className="col-md-1">Gender :</span>
+                {user.gender}
+              </li>
+            </ul>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 const SettingsWithTracker = withTracker(() => {
-  const user = Meteor.user() || {};
+  let user = Meteor.user() || null;
   return {
-    username: user.username,
-    email: user.emails[0].address,
-    id: user._id
+    user
   };
 })(Settings);
 

@@ -14,3 +14,15 @@ Meteor.publish('messages.lasts', (id) => {
         // skip: 50,
     });
 });
+
+
+Meteor.publish('messages_privates.lasts', (usersIds) => {
+    return Messages.find({
+        usersIds: usersIds,
+    }, {
+        sort: {
+            createdAt: 1
+        },
+        limit: 200,
+    });
+});

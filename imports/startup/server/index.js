@@ -4,6 +4,6 @@ import {
 
 import '/imports/api/Messages/server/';
 import '/imports/api/Rooms/server/';
-import '/imports/api/Users/server/publication';
+import '/imports/api/Users/server/';
 
 Meteor.startup(() => {});

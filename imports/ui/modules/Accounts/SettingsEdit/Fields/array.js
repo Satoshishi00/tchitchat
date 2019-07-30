@@ -9,10 +9,14 @@ const fields = [{
         placeholder: "Username"
     },
     {
-        name: "password",
-        type: "password",
-        placeholder: "Password"
+        name: "birthdate",
+        type: "Date",
     },
+    {
+        name: "city",
+        type: "text",
+        placeholder: "City"
+       },
 ];
 
 export default fields;

@@ -6,6 +6,9 @@ import { Route, Redirect } from "react-router-dom";
 const MyRoute = ({ logged, path, component, userId }) => {
   if (userId) {
     if (logged) {
+      if (path === "/") {
+        return <Redirect to="/rooms" />;
+      }
       return <Route path={path} component={component} />;
     }
     return <Redirect to="/rooms" />;

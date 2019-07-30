@@ -44,19 +44,23 @@ const Connection = () => {
 
   return (
     <div className="container">
-      <h1>Connection</h1>
+      <div id="topbar">
+        <h1>Connection</h1>
+      </div>
       <form onSubmit={signin}>
         <Fields update={update} state={{ username, password }} />
-        <div>
-          <button className="btn btn-primary mr-3" onClick={signin}>
-            Se connecter
-          </button>
-          <Link className="btn btn-primary" to="/signup">
+        <div className="btn-container">
+          <Link className="btn btn-info" to="/signup">
             Inscription
           </Link>
+          <button className="btn btn-success" onClick={signin}>
+            Se connecter
+          </button>
         </div>
       </form>
-      <Link to="/missing_pwd">Mot de passe oublié</Link>
+      <Link className="text-center item-center" to="/missing_pwd">
+        Mot de passe oublié
+      </Link>
     </div>
   );
 };

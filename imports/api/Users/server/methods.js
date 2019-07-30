@@ -2,54 +2,89 @@ import {
     Meteor
 } from 'meteor/meteor';
 import Users from '..';
+import {
+    Accounts
+} from 'meteor/accounts-base';
+import validEmail from '/imports/utils/validEmail'
 
 Meteor.methods({
 
-    "users.update"({
-        id,
+    "users.infos.update"({
         email,
         username,
-        password,
-        genre,
-        birthday,
+        gender,
         city,
+        birthdate,
     }) {
         if (!this.userId) {
             throw new Meteor.Error('403', 'You must be connected');
         }
 
-        const user = Users.findOne(id);
+        Accounts.setUsername(this.userId, username);
+        
+        const oldUser = Meteor.user();
+        const oldEmail = oldUser.emails[0].address;
+        Accounts.addEmail(this.userId, email);
 
-        if (user.userId !== this.userId) {
-            throw new Meteor.Error('403', 'You must be the owner of article');
+        const user = Meteor.user();
+        if (user.emails.lenght > 1) {
+            Accounts.removeEmail(this.userId, oldEmail)
         }
-
-        Users.update(id, {
+        
+        Meteor.users.update(this.userId, {
             $set: {
-                email,
-                username,
-                password,
-                genre,
-                birthday,
+                gender,
+                birthdate,
                 city,
-                createdAt: new Date(),
+                updatedAt: new Date(),
             }
         });
     },
 
-    "users.remove"({
-        id
+
+    "users.verify.email"({
+        token
     }) {
         if (!this.userId) {
             throw new Meteor.Error('403', 'You must be connected');
         }
 
-        const article = Users.findOne(id);
 
-        if (article.userId !== this.userId) {
-            throw new Meteor.Error('403', 'You must be the owner of article');
-        }
+        console.log(Meteor.user({services}))
+        // Accounts.setUsername(this.userId, username);
 
-        Users.remove(id);
+        // const oldUser = Meteor.user();
+        // const oldEmail = oldUser.emails[0].address;
+        // Accounts.addEmail(this.userId, email);
+
+        // const user = Meteor.user();
+        // if (user.emails.lenght > 1) {
+        //     Accounts.removeEmail(this.userId, oldEmail)
+        // }
+
+        // Meteor.users.update(this.userId, {
+        //     $set: {
+        //         gender,
+        //         birthdate,
+        //         city,
+        //         updatedAt: new Date(),
+        //     }
+        // });
     },
+
+    // "users.remove"({
+    //     id
+    // }) {
+    //     if (!this.userId) {
+    //         throw new Meteor.Error('403', 'You must be connected');
+    //     }
+
+    //     const article = Users.findOne(id);
+
+    //     if (article.userId !== this.userId) {
+    //         throw new Meteor.Error('403', 'You must be the owner of article');
+    //     }
+
+    //     Users.remove(id);
+    // },
 });

@@ -25,9 +25,10 @@ class RoomsAdd extends Component {
   send = () => {
     const { title } = this.state;
     const { history } = this.props;
-
+    console.log(title);
     Meteor.call("rooms.create", { title }, err => {
       if (err) {
+        console.log(title);
         toast.error(err.reason);
       } else {
         toast.success("La chatroom " + title + " a bien été créée !");
@@ -39,8 +40,10 @@ class RoomsAdd extends Component {
   render() {
     const { title } = this.state;
     return (
-      <div>
-        <h1>Add Room</h1>
+      <div id="wrapper">
+        <div id="topbar">
+          <h1>Add Room</h1>
+        </div>
         <CustomInput
           placeholder="Title"
           name="title"

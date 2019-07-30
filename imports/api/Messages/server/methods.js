@@ -19,7 +19,7 @@ Meteor.methods({
             createdAt: new Date(),
             userId: this.userId,
             userName: Meteor.users.findOne(this.userId).username,
-            usersIds: ""
+            usersIds: "none"
         });
     },
 

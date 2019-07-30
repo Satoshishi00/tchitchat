@@ -48,7 +48,10 @@ const Inscription = () => {
 
   return (
     <div>
-      <h1>Inscription</h1>
+      <div id="topbar">
+        <h1>Inscription</h1>
+      </div>
+
       <form onSubmit={signup}>
         <Fields
           update={update}
@@ -58,12 +61,14 @@ const Inscription = () => {
             email
           }}
         />
-        <button className="btn btn-primary" onClick={signup}>
-          S'inscrire
-        </button>
-        <Link className="btn btn-primary" to="signin">
-          Connection
-        </Link>
+        <div className="btn-container">
+          <Link className="btn btn-info" to="signin">
+            Connection
+          </Link>
+          <button className="btn btn-success" onClick={signup}>
+            S'inscrire
+          </button>
+        </div>
       </form>
     </div>
   );

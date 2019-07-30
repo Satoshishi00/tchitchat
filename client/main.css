@@ -1,5 +1,4 @@
 body {
-  padding: 10px;
   font-family: sans-serif;
 }
 
@@ -8,10 +7,17 @@ body {
   height: 85vh;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
 h1 {
   text-align: center;
-  margin-bottom: 1em;
-
 }
 
 
@@ -42,12 +48,12 @@ h1 {
   width: 36px;
   height: 30px;
   left: 36px;
-  top: 36px;
+  top: 32px;
 }
 
 /* Color/shape of burger icon bars */
 .bm-burger-bars {
-  background: #373a47;
+  background: #ffffff;
 }
 
 /* Position and sizing of clickable cross button */
@@ -86,23 +92,144 @@ h1 {
 
 /*   ---------- </SideBar> -----------*/
 
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+#topbar {
+  display: flex;
+  justify-content: center;
+  background-color: #373a47;
+  margin-bottom: 3rem;
+}
+
+#topbar h1,
+#topbar-msg h1 {
+  padding-top: 3rem;
+  margin: 0;
+  margin-bottom: 3rem;
+  text-transform: capitalize;
+  color: #fff;
+}
+
+#topbar-msg {
+  display: flex;
+  justify-content: center;
+  background-color: #373a47;
+}
 
 #messageInput {
-  /* display: flex;
+  display: flex;
+  justify-content: space-evenly;
+  padding-bottom: 1rem;
+  width: 100vw;
   position: absolute;
-  bottom: 0; */
+  bottom: 0vh;
 }
 
 #messages {
   overflow-y: scroll;
-  height: 75vh;
+  padding: 0 1rem;
+  margin-bottom: 4.5rem;
+  max-height: 100%;
+  margin-top: 0.8rem;
+  bottom: 0px;
+}
+
+#chatbox {
+  max-height: 85%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 1rem;
+}
+
+#rooms {
+  height: 85%;
+  padding: 1rem;
+}
+
+.rooms-create {
+  display: block;
+  background-color: #44bd32;
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: .375rem;
+  margin: 1rem 0;
+  width: 50%;
+  text-align: center;
+}
+
+.rooms-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 2rem 0;
+}
+
+.rooms-container {
+  overflow-y: scroll;
+  height: 80%;
+}
+
+.rooms-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 5rem;
+}
+
+.rooms-item--name {
+  display: block;
+  width: 70%;
+  display: flex;
+  justify-content: flex-start;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #373a47;
+  font-size: 1.4rem;
+}
+
+.rooms-item--actions {
+  width: 30%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 #close {
   position: absolute;
-  top: 0;
+  top: .5rem;
   right: 0;
-  padding: 2.4em;
-  color: black;
+  padding: 2.4rem;
+  color: #fff;
   cursor: pointer;
+}
+
+.users-item {
+  height: 5rem;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.item-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-update {
+  display: block;
+  background-color: #40739e;
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: .375rem;
+  margin-left: 2rem;
+  margin-bottom: 2rem;
+  width: 40%;
+  text-align: center;
 }

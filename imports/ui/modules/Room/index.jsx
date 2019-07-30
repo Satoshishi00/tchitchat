@@ -23,7 +23,7 @@ class Room extends Component {
     if (!props.userId) {
       props.history.push("/singnin");
     }
-    console.log(props);
+
     return {};
   }
 
@@ -47,35 +47,46 @@ class Room extends Component {
 
   render() {
     const { content } = this.state;
-    const { loading, messages, userId, roomId } = this.props;
-    let roomName = Rooms.findOne(roomId).title;
+    const { loading, messages, userId, roomId, room } = this.props;
+
+    let roomName = "";
+    if (typeof room != "undefined") {
+      roomName = room.title;
+    }
 
     return (
-      <div>
-        <h2>{roomName}</h2>
-        <Loader
-          loading={loading}
-          render={messages.map(message => (
-            <Message
-              key={message._id}
-              message={message}
-              roomId={roomId}
-              userId={userId}
+      <div id="wrapper">
+        <div id="topbar-msg">
+          <h1>{roomName}</h1>
+        </div>
+        <div id="chatbox">
+          <div id="messages">
+            <Loader
+              loading={loading}
+              render={messages.map(message => (
+                <Message
+                  key={message._id}
+                  message={message}
+                  roomId={roomId}
+                  userId={userId}
+                />
+              ))}
             />
-          ))}
-        />
-        <form onSubmit={this.send} style={{ display: "flex" }}>
-          <LittleInput
-            placeholder="message"
-            type="text"
-            name="content"
-            value={content}
-            update={this.update}
-          />
-          <LittleButton>
-            <i className="fas fa-paper-plane" />
-          </LittleButton>
-        </form>
+          </div>
+
+          <form onSubmit={this.send} id="messageInput">
+            <LittleInput
+              placeholder="message"
+              type="text"
+              name="content"
+              value={content}
+              update={this.update}
+            />
+            <LittleButton>
+              <i className="fas fa-paper-plane" />
+            </LittleButton>
+          </form>
+        </div>
       </div>
     );
   }
@@ -88,11 +99,13 @@ export default withTracker(({ match: { params: { id } } }) => {
     { roomId: id },
     { sort: { createdAt: 1 } }
   ).fetch();
+  const room = Rooms.findOne(id);
   return {
     userId: Meteor.userId(),
     user: Meteor.user() || {},
     roomId: id,
     loading,
-    messages
+    messages,
+    room
   };
 })(Room);

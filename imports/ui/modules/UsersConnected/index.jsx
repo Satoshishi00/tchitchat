@@ -47,11 +47,15 @@ class UsersConnected extends Component {
     const { content } = this.state;
     const { users, contactUser, loading, messages } = this.props;
     return (
-      <div>
-        <h1>Users</h1>
-        {users.map(user => (
-          <UserConnected key={user._id} user={user} />
-        ))}
+      <div id="wrapper">
+        <div id="topbar">
+          <h1>Users</h1>
+        </div>
+        <div id="rooms">
+          {users.map(user => (
+            <UserConnected key={user._id} user={user} />
+          ))}
+        </div>
         {typeof contactUser != "undefined" && (
           <div>
             <h2>{contactUser.username}</h2>
@@ -92,8 +96,13 @@ class UsersConnected extends Component {
 }
 
 export default withTracker(({ match: { params: { id } } }) => {
-  let users = Meteor.users.find({ "status.online": true }).fetch();
-
+  // let users = Meteor.users.find({ "status.online": true }).fetch();
+  let users = Meteor.users.find({}, { sort: { username: 1 } }).fetch();
+  users.map(user => {
+    if (typeof user.status !== "undefined") {
+      console.log(user.status.online);
+    }
+  });
   // users = Meteor.subscribe("userStatus");
   let loading = false;
   // if (!loading) {
@@ -103,7 +112,6 @@ export default withTracker(({ match: { params: { id } } }) => {
   let messages = [];
   let contactUser = Meteor.users.findOne(id);
   if (typeof contactUser != "undefined") {
-    console.log("ContactUser : " + contactUser);
     let listIds = [Meteor.userId(), contactUser._id];
     listIds.sort();
     let usersIds = listIds[0] + "/" + listIds[1];
@@ -112,9 +120,7 @@ export default withTracker(({ match: { params: { id } } }) => {
       { usersIds: usersIds },
       { sort: { createdAt: 1 } }
     ).fetch();
-    console.log("Messages instancitions props : " + messages);
   }
-  console.log(contactUser);
 
   return {
     userId: Meteor.userId(),

@@ -15,11 +15,11 @@ import RoomsEdit from "/imports/ui/modules/RoomsEdit";
 import UserPrivateMessages from "/imports/ui/modules/UserPrivateMessages";
 import UsersConnected from "/imports/ui/modules/UsersConnected";
 import Settings from "/imports/ui/modules/Accounts/Settings";
+import SettingsEdit from "/imports/ui/modules/Accounts/SettingsEdit";
 import Verify from "/imports/ui/modules/Accounts/Verify";
 import Tchatbox from "/imports/ui/modules/Tchatbox";
 import Errors from "/imports/ui/modules/Errors";
 import Landing from "/imports/ui/modules/Landing";
-import UserPrivateRoom from "../../ui/modules/UserPrivateMessages";
 
 const App = () => (
   <Router>
@@ -35,6 +35,7 @@ const App = () => (
       <MyRoute path="/rooms/:id?" component={Rooms} logged />
       <MyRoute path="/user/:id?" component={UserPrivateMessages} logged />
       <MyRoute path="/users/:id?" component={UsersConnected} logged />
+      <MyRoute path="/settings/edit/:id?" component={SettingsEdit} logged />
       <MyRoute path="/settings" component={Settings} logged />
       <MyRoute path="/verify" component={Verify} logged />
       <MyRoute path="/tchatbox" component={Tchatbox} logged />

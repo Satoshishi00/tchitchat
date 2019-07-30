@@ -4,7 +4,7 @@ import LittleInput from "/imports/ui/components/LittleInput";
 import CustomInput from "/imports/ui/components/CustomInput";
 import LittleButton from "/imports/ui/components/LittleButton";
 import { withTracker } from "meteor/react-meteor-data";
-import Link from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Rooms from "/imports/api/Rooms";
 import Messages from "/imports/api/Messages";
@@ -13,6 +13,7 @@ import Loader from "/imports/ui/components/Loader";
 import Message from "./Message";
 
 import formatTime from "/imports/utils/formatTime";
+import { spawn } from "child_process";
 
 class UserPrivateMessages extends Component {
   state = {
@@ -43,44 +44,45 @@ class UserPrivateMessages extends Component {
   render() {
     const { content } = this.state;
     const { loading, messages, contactUser } = this.props;
-
     return (
       <div>
         {typeof contactUser != "undefined" && (
-          <div>
-            <h1>{contactUser.username}</h1>
-            <a id="close" href="/users">
-              <i class="fas fa-times fa-3x" />
-            </a>
-
-            <div id="messages">
-              <Loader
-                loading={loading}
-                render={messages.map(message => (
-                  <Message
-                    key={message._id}
-                    message={message}
-                    userId={Meteor.userId()}
-                  />
-                ))}
-              />
+          <div id="wrapper">
+            <div id="topbar-msg">
+              <h1>{contactUser.username}</h1>
+              <Link to="/users" id="close">
+                <i className="fas fa-times fa-3x" />
+              </Link>
             </div>
-            <form
-              onSubmit={this.send}
-              style={{ display: "flex" }}
-              id="messageInput"
-            >
-              <LittleInput
-                placeholder="message"
-                type="text"
-                name="content"
-                value={content}
-                update={this.update}
-              />
-              <LittleButton>
-                <i className="fas fa-paper-plane" />
-              </LittleButton>
-            </form>
+
+            {loading === false && (
+              <div id="chatbox">
+                <div id="messages">
+                  <Loader
+                    loading={loading}
+                    render={messages.map(message => (
+                      <Message
+                        key={message._id}
+                        message={message}
+                        userId={Meteor.userId()}
+                      />
+                    ))}
+                  />
+                </div>
+                <form onSubmit={this.send} id="messageInput">
+                  <LittleInput
+                    placeholder="message"
+                    type="text"
+                    name="content"
+                    value={content}
+                    update={this.update}
+                  />
+                  <LittleButton>
+                    <i className="fas fa-paper-plane" />
+                  </LittleButton>
+                </form>
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -89,14 +91,18 @@ class UserPrivateMessages extends Component {
 }
 
 export default withTracker(({ match: { params: { id } } }) => {
-  let loading = false;
-
+  let loading = true;
   let messages = [];
   let contactUser = Meteor.users.findOne(id);
   if (typeof contactUser != "undefined") {
     let listIds = [Meteor.userId(), contactUser._id];
     listIds.sort();
     let usersIds = listIds[0] + "/" + listIds[1];
+    let messagesPublication = Meteor.subscribe(
+      "messages_privates.lasts",
+      usersIds
+    );
+    loading = !messagesPublication.ready();
 
     messages = Messages.find(
       { usersIds: usersIds },

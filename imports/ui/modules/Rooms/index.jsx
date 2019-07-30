@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { Meteor } from "meteor/meteor";
 import React, { useState, useCallback } from "react";
 import { withTracker } from "meteor/react-meteor-data";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import CustomInput from "../../components/CustomInput";
 
@@ -23,16 +25,30 @@ const displayRooms = ({ userId, loading, rooms }) => {
   }, []);
 
   return (
-    <div>
-      <h1>Rooms</h1>
-      <a href="/rooms/add">Créer une room</a>
-      <p>Listing des rooms</p>
-      <Loader
-        loading={loading}
-        render={rooms.map(room => (
-          <Room key={room._id} userId={userId} room={room} remove={remove} />
-        ))}
-      />
+    <div id="wrapper">
+      <div id="topbar">
+        <h1>Rooms</h1>
+      </div>
+
+      <div id="rooms">
+        <Link className="rooms-create" to="../rooms/add">
+          Créer une room
+        </Link>
+        <h2 className="rooms-title">Listing des rooms</h2>
+        <div className="rooms-container">
+          <Loader
+            loading={loading}
+            render={rooms.map(room => (
+              <Room
+                key={room._id}
+                userId={userId}
+                room={room}
+                remove={remove}
+              />
+            ))}
+          />
+        </div>
+      </div>
     </div>
   );
 };
