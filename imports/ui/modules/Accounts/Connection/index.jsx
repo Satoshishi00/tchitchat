@@ -1,8 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { Meteor } from "meteor/meteor";
 import { Link } from "react-router-dom";
-import { withTracker } from "meteor/react-meteor-data";
-import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

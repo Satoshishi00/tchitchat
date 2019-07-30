@@ -1,3 +1,4 @@
+import { Meteor } from "meteor/meteor";
 import React, { useState, useCallback } from "react";
 import { Accounts } from "meteor/accounts-base";
 import { Link } from "react-router-dom";

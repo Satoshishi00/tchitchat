@@ -1,18 +1,19 @@
-import React, { Component, useCallback } from "react";
+import React, { Component } from "react";
 import { Meteor } from "meteor/meteor";
-import LittleInput from "/imports/ui/components/LittleInput";
-import CustomInput from "/imports/ui/components/CustomInput";
-import LittleButton from "/imports/ui/components/LittleButton";
+
 import { withTracker } from "meteor/react-meteor-data";
-import Link from "react-router-dom";
+
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import LittleInput from "/imports/ui/components/LittleInput";
+import LittleButton from "/imports/ui/components/LittleButton";
+import Loader from "/imports/ui/components/Loader";
 
 import Rooms from "/imports/api/Rooms";
 import Messages from "/imports/api/Messages";
 
-import Loader from "/imports/ui/components/Loader";
 import Message from "./Message";
-
-import formatTime from "/imports/utils/formatTime";
 
 class Room extends Component {
   state = {
@@ -47,12 +48,7 @@ class Room extends Component {
 
   render() {
     const { content } = this.state;
-    const { loading, messages, userId, roomId, room } = this.props;
-
-    let roomName = "";
-    if (typeof room != "undefined") {
-      roomName = room.title;
-    }
+    const { loading, messages, userId, roomId, roomName } = this.props;
 
     return (
       <div id="wrapper">
@@ -99,13 +95,17 @@ export default withTracker(({ match: { params: { id } } }) => {
     { roomId: id },
     { sort: { createdAt: 1 } }
   ).fetch();
-  const room = Rooms.findOne(id);
+  console.log(id);
+  const roomName = Meteor.call("rooms.name.by.id", { id }, err => {
+    if (err) toast.error(err.reason);
+  });
+  console.log(roomName);
   return {
     userId: Meteor.userId(),
     user: Meteor.user() || {},
     roomId: id,
     loading,
     messages,
-    room
+    roomName
   };
 })(Room);

@@ -58,4 +58,20 @@ Meteor.methods({
         }
         Rooms.remove(id);
     },
+
+    "rooms.name.by.id"({
+        id
+    }){
+        if (!this.userId) {
+            throw new Meteor.Error('403', 'Vous devez être connecté');
+        }
+        console.log(id);
+        const room = Rooms.findOne(id);
+        console.log("room name : " + room.title);
+
+        if (!room) {
+            throw new Meteor.Error('403', 'Cette room n\'existe pas');
+        }
+        return room.title;
+    }
 });

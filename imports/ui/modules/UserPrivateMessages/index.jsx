@@ -1,19 +1,14 @@
 import React, { Component, useCallback } from "react";
 import { Meteor } from "meteor/meteor";
-import LittleInput from "/imports/ui/components/LittleInput";
-import CustomInput from "/imports/ui/components/CustomInput";
-import LittleButton from "/imports/ui/components/LittleButton";
 import { withTracker } from "meteor/react-meteor-data";
 import { Link } from "react-router-dom";
 
-import Rooms from "/imports/api/Rooms";
 import Messages from "/imports/api/Messages";
 
+import LittleInput from "/imports/ui/components/LittleInput";
+import LittleButton from "/imports/ui/components/LittleButton";
 import Loader from "/imports/ui/components/Loader";
 import Message from "./Message";
-
-import formatTime from "/imports/utils/formatTime";
-import { spawn } from "child_process";
 
 class UserPrivateMessages extends Component {
   state = {
@@ -99,14 +94,14 @@ export default withTracker(({ match: { params: { id } } }) => {
     listIds.sort();
     let usersIds = listIds[0] + "/" + listIds[1];
     let messagesPublication = Meteor.subscribe(
-      "messages_privates.lasts",
+      "messages.privates.lasts",
       usersIds
     );
     loading = !messagesPublication.ready();
 
     messages = Messages.find(
       { usersIds: usersIds },
-      { sort: { createdAt: 1 } }
+      { sort: { createdAt: -1 } }
     ).fetch();
   }
 

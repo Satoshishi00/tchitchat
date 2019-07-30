@@ -1,9 +1,7 @@
 import { Meteor } from "meteor/meteor";
-import React, { useState, useCallback } from "react";
-import { Accounts } from "meteor/accounts-base";
-import { Link } from "react-router-dom";
+import React from "react";
 import { withTracker } from "meteor/react-meteor-data";
-import Fields from "./Fields";
+import { Link } from "react-router-dom";
 import formatTime from "/imports/utils/formatTime";
 
 const Settings = ({ user }) => {

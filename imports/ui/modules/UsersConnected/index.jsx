@@ -1,15 +1,8 @@
 import React, { Component, useCallback } from "react";
 import { Meteor } from "meteor/meteor";
-import { Accounts } from "meteor/accounts-base";
-import { Link } from "react-router-dom";
 import { withTracker } from "meteor/react-meteor-data";
 import Loader from "/imports/ui/components/Loader";
-// import Users from "imports/api/Users/server/publication";
 import UserConnected from "./UserConnected";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Rooms from "/imports/api/Rooms";
-import formatTime from "/imports/utils/formatTime";
 import LittleInput from "/imports/ui/components/LittleInput";
 import LittleButton from "/imports/ui/components/LittleButton";
 import Message from "./Message";

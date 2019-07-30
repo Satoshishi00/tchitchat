@@ -15,10 +15,9 @@ Accounts.config({
 
 Accounts.emailTemplates.verifyEmail = {
     subject() {
-        return "Activate your account now!";
+        return "Tchitchat - Activez votre email";
     },
     text(user, url) {
-        console.log(url);
         url = url.replace('/#/verify-email', '/verify');
         console.log(url);
         return `Salut ${user.username}! \nConfime ton addresse mail en cliquant sur ce lien : ${url}`;
@@ -30,10 +29,6 @@ const UserSchema = new SimpleSchema({
         type: String,
         max: 255,
     },
-    // Email: {
-    //     type: String,
-    //     max: 255,
-    // },
     'emails.$': {
         type: Object,
     },
@@ -63,7 +58,6 @@ const UserSchema = new SimpleSchema({
     },
     gender: {
         type: String,
-        allowedValues: Object.values(Genders),
         optional: true
     },
     city: {

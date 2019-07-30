@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Meteor } from "meteor/meteor";
 import CustomInput from "/imports/ui/components/CustomInput";
 import { withTracker } from "meteor/react-meteor-data";
-import Link from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

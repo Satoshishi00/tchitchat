@@ -1,35 +1,24 @@
 import { Meteor } from "meteor/meteor";
-import React, { useState, useCallback, Component } from "react";
-import { Accounts } from "meteor/accounts-base";
-import { Link } from "react-router-dom";
+import React, { useState, useCallback } from "react";
 import { withTracker } from "meteor/react-meteor-data";
-import CustomSelect from "/imports/ui/components/CustomSelect";
-import Fields from "./Fields";
-import Select from "./Select";
+import { Link } from "react-router-dom";
+
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import CustomSelect from "/imports/ui/components/CustomSelect";
 import formatDate from "/imports/utils/formatDate";
+import Fields from "./Fields";
 
 const SettingsEdit = ({ user: propsUser }) => {
   const [user, setUser] = useState(propsUser);
 
   const update = useCallback(
     (e, { name, value, type }) => {
-      console.log("aaa");
-      console.log(name, value, type);
-      console.log("aaa");
       setUser({
         ...user,
         [name]: value
       });
-      if (name == "gender") {
-        console.log("ok gender");
-        setUser({
-          ...user,
-          [type]: "text"
-        });
-        console.log(name, value, type);
-      }
     },
     [user]
   );
@@ -62,6 +51,7 @@ const SettingsEdit = ({ user: propsUser }) => {
           name="gender"
           update={update}
           selected={user.gender}
+          value={user.gender}
           options={["", "Homme", "Femme", "Autre"]}
         />
         <Link to="../settings">
@@ -78,7 +68,7 @@ const SettingsWithTracker = withTracker(() => {
   const user = Meteor.user() || { emails: [{}] };
   user.email = user.emails[0].address;
   user.birthdate = user.birthdate ? formatDate(user.birthdate) : user.birthdate;
-  user.genre = user.genre || "";
+  user.gender = user.gender || "";
   delete user.emails;
   return {
     user

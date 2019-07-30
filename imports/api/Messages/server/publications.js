@@ -16,12 +16,12 @@ Meteor.publish('messages.lasts', (id) => {
 });
 
 
-Meteor.publish('messages_privates.lasts', (usersIds) => {
+Meteor.publish('messages.privates.lasts', (usersIds) => {
     return Messages.find({
         usersIds: usersIds,
     }, {
         sort: {
-            createdAt: 1
+            createdAt: -1
         },
         limit: 200,
     });
